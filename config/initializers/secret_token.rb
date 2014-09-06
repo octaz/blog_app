@@ -9,4 +9,19 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-BlogApp::Application.config.secret_key_base = 'b82afc8546e4067ce9469a4af5f546c0531360a7203af592a6a2ecdd7f25a27ce027b39d1e4927ff18e5d0f2df18f8d3bd0522192fa63ff272bf534dd769508e'
+require 'securerandom'
+
+def secure_token
+	token_file = Rails.root.join('.secret')
+	if File.exists?(token_file)
+		#use the existing file
+		File.read(token_file).chomp
+	else
+		#generate a new token and store it in token_file
+		token = SecureRandom.hex(64)
+		File.write(token_file, token)
+		token
+	end
+end
+
+BlogApp::Application.config.secret_key_base = secure_token
