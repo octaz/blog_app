@@ -10,12 +10,12 @@ describe "Posts" do
 
   	it "should have the title 'Posts Home'" do
   		visit '/posts/home/'
-  		expect(page).to have_title('Thomas DeFina Blog App | Posts Home')
+  		expect(page).to have_title('Thomas DeFina Blog App')
   	end
 
     it "should not have a custom page title" do
       visit '/posts/home/'
-      expect(page).not_to have_title('| Home')
+      expect(page).not_to have_title('| Posts Home')
     end
 
   end
