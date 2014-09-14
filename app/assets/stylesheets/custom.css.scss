@@ -3,6 +3,8 @@
 
 $grayMediumLight: #eaeaea;
 
+$ghostWhite: #F8F8FF;
+
 #dexileos {
 	width: 50%;
 	height: auto;
@@ -112,4 +114,8 @@ footer ul {
 footer ul li {
   float: left;
   margin-left: 10px;
+}
+
+.textWhite {
+  color: white;
 }
