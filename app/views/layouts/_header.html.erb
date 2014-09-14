@@ -1,0 +1,23 @@
+<header class = "navbar navbar-fixed-top navbar-inverse">
+		<div class = "navbar-inner">
+			<div class ="container">
+				<%= link_to "Blog App", '#', id: "logo" %>
+				<nav>
+					<ul class = "nav pull-left">
+						<li>
+							<%= link_to "Home", '#' %> 
+						</li>
+						<li>
+							<%= link_to "Gaming", '#' %>
+						</li>
+						<li>
+							<%= link_to "Life", '#' %>
+							<%# TODO replace these links with tagged links, will need to create a function that gets posts by tag%>
+						</li>
+					</ul>
+				<%= link_to "Sign In/Up", '#',  class: "nav pull-right" %>
+				<%# TODO replace these links with login links %>
+				</nav>
+			</div>
+		</div>
+	</header>
