@@ -5,7 +5,7 @@
 				<nav>
 					<ul class = "nav pull-left">
 						<li>
-							<%= link_to "Home", '#' %> 
+							<%= link_to "Home", posts_home_path %> 
 						</li>
 						<li>
 							<%= link_to "Gaming", '#' %>
@@ -17,7 +17,25 @@
 					</ul>
 
 				<div class="textWhite">
-					<%= link_to "Sign In/Up", '#',  class: "nav pull-right" %>
+					<% if !signed_in? %>
+					
+						<%= link_to "Sign In/Up", signin_path,  class: "nav pull-right", id: "signout" %> 
+					
+					<% else %>
+						<div class="nav pull-right" >
+							<li id = "fat-menu" class="dropdown" >
+								<a href ='#' class="dropdown-toggle" data-toggle="dropdown">
+									Your Account <b class="caret"></b>
+								</a>
+								<ul class = "dropdown-menu">
+									<li><%= link_to "Profile", current_user %></li>
+									<li class="divider"></li>
+									<li><%= link_to "Sign Out", signout_path, method: "delete" %></li>
+								</ul>
+							</li>
+							
+						</div>
+					<% end %>
 				</div>
 				<%# TODO replace these links with login links %>
 				</nav>

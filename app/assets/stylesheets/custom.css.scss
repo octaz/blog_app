@@ -87,6 +87,25 @@ p {
   text-decoration: none;
 }
 
+#signout{
+  float: right;
+  margin-right: 10px;
+  color: #fff;
+  letter-spacing: -1px;
+
+  margin-top: 15px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+#notAUser{
+  color: black;
+  font-weight: bold;
+  &:hover{
+    color: white;
+  }
+}
+
 #footer {
   margin-top: 45px;
   padding-top: 5px;
