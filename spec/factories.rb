@@ -23,4 +23,10 @@ FactoryGirl.define do
     user
   end
 
+  factory :tag do
+    title "tag"
+  end
+
+  
+
 end

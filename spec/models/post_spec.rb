@@ -13,6 +13,15 @@ describe Post do
  	it {should respond_to(:content)}
  	it {should respond_to(:user_id)}
  	it {should respond_to(:user)}
+ 	it {should respond_to(:post_tags)}
+ 	it {should respond_to(:tags)}
+ 	it {should respond_to(:add_tags!)}
+
+
+ 	describe "tagging" do
+ 		let(:tag) {FactoryGirl.create(:tag)}
+ 	end
+
 
  	its(:user) {should eq admin}
 

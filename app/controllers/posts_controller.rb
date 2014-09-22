@@ -10,7 +10,12 @@ class PostsController < ApplicationController
   end
 
   def home
-    @posts = Post.paginate(page: params[:page])
+    #to do, implement search by
+    # if params[:tag]
+    #   @posts = Post.select("posts.*")
+    # else
+      @posts = Post.paginate(page: params[:page])
+    # end
   end
 
   # GET /posts/1
@@ -75,8 +80,11 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :content)
+      params.require(:post).permit(:title, :content, :tag_list)
     end
+
+
+
 
     
 
