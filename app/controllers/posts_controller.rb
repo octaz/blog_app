@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :correct_admin_user, only: [:edit, :update, :new, :destroy, :create]
+
 
   # GET /posts
   # GET /posts.json
@@ -8,7 +10,7 @@ class PostsController < ApplicationController
   end
 
   def home
-    @posts = Post.all
+    @posts = Post.paginate(page: params[:page])
   end
 
   # GET /posts/1
@@ -29,40 +31,40 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
+    @post.update_attribute(:user_id, current_user.id)
 
-    respond_to do |format|
       if @post.save
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @post }
+       flash[:success] = "Post Created"
+       redirect_to home_path
+     
       else
-        format.html { render action: 'new' }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
+        render action: 'new' 
+       
       end
-    end
+    
   end
 
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
-    respond_to do |format|
-      if @post.update(post_params)
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
-        format.json { head :no_content }
+ 
+      if @post.update_attributes(post_params)
+        flash[:success] = "Post Updated"
+        redirect_to home_path
+        
       else
-        format.html { render action: 'edit' }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
+        render action: 'edit' 
+       
       end
-    end
+   
   end
 
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
-    @post.destroy
-    respond_to do |format|
-      format.html { redirect_to posts_url }
-      format.json { head :no_content }
-    end
+    Post.find(params[:id]).destroy
+    flash[:success] = "Post deleted."
+    redirect_to home_path
   end
 
   private
@@ -73,6 +75,10 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:user_id, :title, :content)
+      params.require(:post).permit(:title, :content)
     end
+
+    
+
+    
 end

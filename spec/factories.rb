@@ -17,4 +17,10 @@ FactoryGirl.define do
   	end
   end
 
+  factory :post do
+    title "title"
+    content "content"
+    user
+  end
+
 end

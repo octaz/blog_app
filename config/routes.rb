@@ -12,6 +12,7 @@ BlogApp::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
 
   get "posts/home"
+  match "/home", to: 'posts#home', via: 'get'
 
   match '/signup', to: 'users#new', via: 'get'
 

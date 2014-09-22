@@ -1,0 +1,26 @@
+<li>
+	<div>
+		<span class = "title"><h3> <%= post.title %></h3> </span>
+		<div class = "editDeletePost">
+		<% if current_user && current_user.admin %>
+   		
+	   		<%= link_to "Edit", edit_post_path(post)%>
+	   		<%= link_to "Delete", post, method: :delete,
+	   									data: {confirm: "You sure?"} %>
+   		<% end %>
+		</div>
+	</div>
+
+	<span class = "user"><h4>By <%= User.find(post.user_id).name %> </h4> </span>
+	<span class = "content"><%=post.content%></span>
+	<div>
+	<span class = "timestamp">
+		Posted <%= time_ago_in_words(post.created_at) %> ago.
+	</span>
+	<% if post.created_at != post.updated_at %>
+	<span class = "updated">
+		Updated <%= time_ago_in_words(post.updated_at) %> ago.
+	</span>
+	<% end %>
+	</div>
+</li>

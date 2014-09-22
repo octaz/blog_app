@@ -226,3 +226,80 @@ input {
     }
   }
 }
+
+/* create post button */
+
+#createPost {
+  float: right;
+  margin-right: 10px;
+  color: #fff;
+  letter-spacing: -1px;
+
+  margin-top: 15px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+/* microposts */
+
+.posts {
+  list-style: none;
+  margin: 10px 0 0 0;
+
+  li {
+    padding: 10px 0;
+    border-top: 1px solid #e8e8e8;
+  }
+}
+
+h3{ 
+  font-size: 2em;
+}
+h4{
+  font-size: 1.2em;
+}
+
+
+
+.content {
+  display: block;
+}
+.timestamp {
+  float: left;
+  color: $grayLight;
+}
+.updated{
+  float:right;
+  color: $grayLight;
+  text-align: right;
+}
+.gravatar {
+  float: left;
+  margin-right: 10px;
+}
+aside {
+  textarea {
+    height: 100px;
+    margin-bottom: 5px;
+  }
+}
+
+#quotes {
+  font-size: 1.5em;
+  color: green;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+#postCount{
+  float: left;
+  font-size: .8em;
+  text-align: left;
+}
+
+.editDeletePost{
+  float: right;
+  font-weight: bold;
+
+}

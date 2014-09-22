@@ -58,6 +58,19 @@ describe "AuthenticationPages" do
 		        before { delete user_path(user) }
 		        specify { expect(response).to redirect_to(root_url) }
 		      end
+
+		      describe  "in the Posts controller" do
+
+		      	describe "submitting to the create action" do
+		      		before {post posts_path}
+		      		specify { expect(response).to redirect_to(root_url)}
+		      	end
+
+		      	describe "submitting to the destroy action" do
+		      		before { delete post_path(FactoryGirl.create(:post))}
+		      		specify { expect(response).to redirect_to(root_url)}
+		      	end
+		      end
 		    end
 		 
  	 	describe "for non-signed in users" do

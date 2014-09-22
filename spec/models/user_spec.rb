@@ -20,11 +20,38 @@ describe User do
 
 	it {should respond_to(:authenticate)}
 
+	it {should respond_to(:posts) }
+
 	it {should be_valid}
 
 	# describe "admin should be false" do
 	# 	@user.admin.should be_false
 	# end
+
+	describe "post associations" do
+		let (:admin) {FactoryGirl.create(:admin)}
+		subject {admin}
+		let!(:older_post) do
+			FactoryGirl.create(:post, user: admin, created_at: 1.day.ago)
+		end
+		let!(:newer_post) do
+			FactoryGirl.create(:post, user: admin, created_at: 1.hour.ago)
+		end
+
+		it "should have the right posts in the right order" do
+			expect(admin.posts.to_a).to eq [newer_post, older_post]
+		end
+
+		it "should destroy associated posts" do
+			posts = admin.posts.to_a
+			admin.destroy
+			expect(posts).not_to be_empty
+			posts.each do |post|
+				expect(Post.where(id: post.id)).to be_empty
+			end
+		end
+
+	end
 
 	describe "remember_token" do
 		before {@user.save}
