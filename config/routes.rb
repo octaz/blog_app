@@ -21,6 +21,8 @@ BlogApp::Application.routes.draw do
   match '/signout', to:'sessions#destroy', via: 'delete'
   get 'tags/:tag', to: 'posts#home', as: :tag
 
+ 
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.

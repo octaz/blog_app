@@ -11,12 +11,15 @@ class PostsController < ApplicationController
 
   def home
     #to do, implement search by
-    # if params[:tag]
-    #   @posts = Post.select("posts.*")
-    # else
+     if params[:tag]
+       @posts = Post.tagged_with(params[:tag]).paginate(page: params[:page])
+     #  @posts = Post.tagged_with_paginate(params[:tag], params[:page])
+     else
       @posts = Post.paginate(page: params[:page])
-    # end
+     end
   end
+
+ 
 
   # GET /posts/1
   # GET /posts/1.json
