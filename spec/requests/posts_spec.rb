@@ -55,21 +55,43 @@ describe "Posts" do
   end
 
    describe "Home Page" do
-    let(:admin) {FactoryGirl.create(:admin)}
-    let!(:p1) {FactoryGirl.create(:post, user: admin, content: "foo")}
-    let!(:p2) {FactoryGirl.create(:post, user: admin, content: "bar")}
+      let(:admin) {FactoryGirl.create(:admin)}
+      let!(:p1) {FactoryGirl.create(:post, user: admin, content: "foo")}
+      let!(:p2) {FactoryGirl.create(:post, user: admin, content: "bar")}
 
-    before {visit home_path}
 
-    it {should have_content(admin.name)}
 
-    describe "posts" do
-      it {should have_content(p1.content)}
-      it {should have_content(p2.content)}
-      it {should have_content(admin.posts.count)}
+      before do
+        visit home_path
+        p1.tag!("gaming");
+      end
+
+      it {should have_content(admin.name)}
+
+      describe "posts" do
+        it {should have_content(p1.content)}
+        it {should have_content(p2.content)}
+        it {should have_content(admin.posts.count)}
+
+        
+        it "should have the right tags" do
+          p1.tags.each do |tag|
+            expect(page).to have_selector('tags', tag)
+          end
+        end
+
+        describe "tag cloud" do
+          it {should have_selector('tag-cloud')}
+          it "should have all current tags" do
+            Tag.all.each do |tag|
+              expect(page).to have_selector('tag-cloud', tag)
+            end
+          end
+        end
+
+        
+      end
     end
-
-  end
 
     describe "as the wrong user" do
       let(:user1) {FactoryGirl.create(:user)}

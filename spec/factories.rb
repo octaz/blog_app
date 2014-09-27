@@ -20,7 +20,7 @@ FactoryGirl.define do
   factory :post do
     title "title"
     content "content"
-    user
+    admin
   end
 
   factory :tag do

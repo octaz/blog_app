@@ -21,6 +21,16 @@ class Post < ActiveRecord::Base
 		tags.map(&:title).join(", ")
 	end
 
+	def has_tag?(title)
+		self.tags.include? title
+	end
+
+	def tag!(title)
+		if !has_tag?(title)
+			self.tags.push(Tag.where(title: title))
+		end
+	end
+
 	def tag_list=(titles)
 		self.tags = titles.split(", ").map do |n|
 			Tag.where(title: n.strip).first_or_create!

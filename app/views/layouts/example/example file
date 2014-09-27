@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf=8">
+  <title><%= full_title(yield(:title)) %></title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+
+  <%= render 'layouts/shim' %>
+
+</head>
+<body>
+  <div class="container-fluid">
+
+ 
+  	<%= render 'layouts/header' %>
+    <%= render 'layouts/quotes' %>
+    <div class="row-fluid>">
+      <div class="span3">
+        <%= render 'layouts/left_column' %>
+      </div>
+    
+
+    	<div class="span9">
+        
+          <% flash.each do |key, value| %>
+            <div class = "alert alert -<%= key %>"><%= value %> </div>
+          <% end %>
+      		<%= yield %>
+      		<%= render 'layouts/footer' %>
+          <%= debug(params) if Rails.env.development? %>
+      
+    	</div>
+
+    </div>
+  </div>
+</body>
+</html>
+
+<SEPERATOR>
+
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf=8">
+  <title><%= full_title(yield(:title)) %></title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+  <meta name = "viewport" content="width=device-width, initial-scale=1.0" >
+  <link href = "assets/css/boostrap-responsive.css" rel="stylesheet">
+
+  <%= render 'layouts/shim' %>
+
+</head>
+<body>
+  <div class="container-fluid">
+
+  <div = "row-fluid">
+    <%= render 'layouts/header' %>
+  </div>
+ 
+   
+      <div class="sidebar-bar nav ">
+        <%= render 'layouts/left_column' %>
+      </div>
+
+      <div = "row-fluid">
+        <%= render 'layouts/quotes' %>
+      </div>
+    
+      <div class = "row-fluid">
+      <div class="span9">
+        
+          <% flash.each do |key, value| %>
+            <div class = "alert alert -<%= key %>"><%= value %> </div>
+          <% end %>
+          <%= yield %>
+          <%= render 'layouts/footer' %>
+          <%= debug(params) if Rails.env.development? %>
+      
+      </div>
+      </div>
+
+   
+  </div>
+</body>
+</html>
+

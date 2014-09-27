@@ -227,6 +227,14 @@ input {
   }
 }
 
+/* body */
+
+body {padding-top: 40px;}
+  @media screen and (max-width: 768px) {
+    body {padding-top: 110px;}
+  }
+
+
 /* create post button */
 
 #createPost {
@@ -303,3 +311,42 @@ aside {
   font-weight: bold;
 
 }
+
+/* tag cloud */
+
+.tag-cloud{
+  background-color: pink;
+}
+
+/* sidebar */
+
+.sidebar-wrapper {
+  
+  width: 250px;
+  background: orange;
+  position: fixed;
+  height: 100%;
+  overflow-y: auto;
+  z-index: 1000;
+
+}
+
+.main-wrapper {
+  padding-left: 250px;
+}
+
+@media (max-width: 767px) {
+  
+  .main-wrapper {
+    padding-left: 0px;
+  }
+
+  .sidebar-wrapper {
+    position: relative;
+  }
+
+  
+}
+
+
+
