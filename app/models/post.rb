@@ -13,8 +13,8 @@ class Post < ActiveRecord::Base
 	end
 
 	def self.tag_counts
-		Tag.select("tags.*, count(taggings.tag_id) as count").
-			joins(:taggings).group("taggings.tag_id")
+		Tag.select("tags.id, tags.title,count(taggings.tag_id) as count").
+    		joins(:taggings).group("taggings.tag_id, tags.id, tags.title")
 	end
 
 	def tag_list

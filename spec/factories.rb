@@ -15,12 +15,16 @@ FactoryGirl.define do
   	factory :admin do
   		admin true
   	end
+
+
   end
+
+
 
   factory :post do
     title "title"
     content "content"
-    admin
+    user
   end
 
   factory :tag do

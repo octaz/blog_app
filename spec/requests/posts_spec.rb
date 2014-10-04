@@ -73,18 +73,34 @@ describe "Posts" do
         it {should have_content(p2.content)}
         it {should have_content(admin.posts.count)}
 
-        
+          it {should have_content("gaming")}
         it "should have the right tags" do
+
+             expect(page).to have_selector('div', 'tags')
+          
+         
+
           p1.tags.each do |tag|
             expect(page).to have_selector('tags', tag)
+            expect(page).not_to have_selector('tags', 'aliens')
           end
         end
 
         describe "tag cloud" do
-          it {should have_selector('tag-cloud')}
+          let(:admin) {FactoryGirl.create(:admin)}
+          let!(:p1) {FactoryGirl.create(:post, user: admin)}
+          before do
+               p1.tag!("gaming")
+          end
+
+       
+          it {should have_selector('div', 'tag-cloud')}
           it "should have all current tags" do
-            Tag.all.each do |tag|
+            expect(page).to have_selector('tag-cloud', 'gaming')
+            p1.tags.each do |tag|
+              puts tag
               expect(page).to have_selector('tag-cloud', tag)
+
             end
           end
         end

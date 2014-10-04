@@ -32,6 +32,8 @@ gem 'bcrypt-ruby', '3.1.2', :require => 'bcrypt'
 
 gem 'faker', '1.1.2'
 
+gem 'redcarpet'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', '0.3.20', require: false

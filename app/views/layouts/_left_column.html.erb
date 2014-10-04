@@ -1,3 +1,5 @@
 <div class="tag-cloud">
-	<p> test text <p>
+	<% tag_cloud(Post.tag_counts, %w{s, m, l}) do |tag, css_class| %>
+		<%= link_to tag.title, tag_path(tag.title), class: css_class %>
+	<% end %>
 </div>
