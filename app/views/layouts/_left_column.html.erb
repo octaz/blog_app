@@ -1,5 +1,32 @@
 <div class="tag-cloud">
-	<% tag_cloud(Post.tag_counts, %w{s, m, l}) do |tag, css_class| %>
-		<%= link_to tag.title, tag_path(tag.title), class: css_class %>
-	<% end %>
+
+	add JAVASCRIPT to render all tags vs related tags
+	<h4> Related Tags </h4>
+	<p>
+		<% tag_cloud(Post.tag_counts, %w{s, m, l}) do |tag, css_class| %>
+			<%= link_to tag.title, tag_path(tag.title), class: css_class %>
+		<% end %>
+
+	</br> </br>
+		<% if @tags!=nil && @tags.any? %>
+			<% @tags.each do |tag| %>
+				<%= link_to tag.title, tag_path(tag.title) %>
+			<% end %>
+		<% end %>
+
+
+	</br> </br>
+		<% if @tagsHash!=nil && @tagsHash.any? %>
+			<% @tagsHash.keys.each do |tag| %>
+				<%= link_to tag.title, tag_path(tag.title) %>
+			<% end %>
+		<% end %>
+
+	</br> </br>
+		<% if @tagsHash!=nil && @tagsHash.any? %>
+			<% tag_cloud(@tagsHash, %w{s, m, l}) do |tag, css_class| %>
+				<%= link_to tag.title, tag_path(tag.title), class: css_class %>
+			<% end %>
+		<% end %>
+	</p>
 </div>

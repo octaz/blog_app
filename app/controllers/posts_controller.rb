@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :correct_admin_user, only: [:edit, :update, :new, :destroy, :create]
-
+  include ApplicationHelper
 
   # GET /posts
   # GET /posts.json
@@ -13,13 +13,18 @@ class PostsController < ApplicationController
     #to do, implement search by
      if params[:tag]
        @posts = Post.tagged_with(params[:tag]).paginate(page: params[:page])
+       @tags = related_tags(@posts)
+       @tagsHash = related_tags_hash(@posts)
+ 
      #  @posts = Post.tagged_with_paginate(params[:tag], params[:page])
      else
       @posts = Post.paginate(page: params[:page])
+      @tags = Array.new
+      @tagsHash = {}
      end
+
   end
 
- 
 
   # GET /posts/1
   # GET /posts/1.json

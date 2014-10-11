@@ -3,7 +3,7 @@ class Post < ActiveRecord::Base
 	validates :content, presence: true
 	validates :user_id, presence: true
 	belongs_to :user
-	has_many :taggings
+	has_many :taggings, dependent: :destroy
 	has_many :tags, through: :taggings
 
 	default_scope -> {order('created_at DESC')}
@@ -13,12 +13,19 @@ class Post < ActiveRecord::Base
 	end
 
 	def self.tag_counts
-		Tag.select("tags.id, tags.title,count(taggings.tag_id) as count").
+		#wrking code
+		# Tag.select("tags.id, tags.title,count(taggings.tag_id) as count").
+  #   		joins(:taggings).group("taggings.tag_id, tags.id, tags.title")
+    	Tag.select("tags.id, tags.title,count(taggings.tag_id) as count").
     		joins(:taggings).group("taggings.tag_id, tags.id, tags.title")
 	end
 
 	def tag_list
 		tags.map(&:title).join(", ")
+	end
+
+	def tags_as_tag
+		tags
 	end
 
 	def has_tag?(title)
@@ -37,4 +44,12 @@ class Post < ActiveRecord::Base
 		end
 	end
 
+	def current_tags(selectedTag)
+	
+
+		@taggings = Tagging.where("tag_id = ?", selectedTag.tag_id)
+		# @currentTags = Tag.find(Post.find(taggings_tag)
+  #   	Tag.find_by_sql("select * from tags where ")
+	
+	end
 end
