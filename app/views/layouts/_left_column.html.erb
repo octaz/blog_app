@@ -1,32 +1,70 @@
+<% if @tagsHash!=nil && @tagsHash.any? %>
+	<script>
+		function runOnLoad()
+		{
+			toggleDisplay("relatedTags", "tags");
+			toggleDisplay("showRelatedTags", "showAllTags");
+		}
+	</script>
+<% else %>
+	<script>
+		function runOnLoad()
+		{
+			toggleDisplay("tags", "relatedTags");
+			toggleDisplay("showAllTags", "showRelatedTags");
+		}
+	</script>
+<% end %>
+
 <div class="tag-cloud">
 
-	add JAVASCRIPT to render all tags vs related tags
-	<h4> Related Tags </h4>
+				<h4 style = "padding-bottom: 10px"> 
+						<div id = "showRelatedTags" style="display: none;">
+							<div style="font-size: 75%; float: left;" >
+								Showing Related Tags
+							</div>
+
+							<div style="font-size: 75%; float: right;" >
+							 <%= link_to 'Show All Tags' , '', {onclick: 'toggleDisplay("tags", "relatedTags"); 
+							 	toggleDisplay("showAllTags", "showRelatedTags");  return false;'}  %>
+							</div>
+						</div>
+
+						<div id = "showAllTags" style="display: inline;">
+							<div style="font-size: 75%; float: left;" >
+							 <%= link_to 'Show Related Tags' , '', {onclick: 'toggleDisplay("relatedTags", "tags"); 
+							 	toggleDisplay("showRelatedTags", "showAllTags"); return false;'} %>
+							</div>
+
+
+					
+							<div style="font-size: 75%; float: right;" >
+								Showing All Tags
+							</div>
+						</div>
+					
+
+				</h4>
+			
+		
 	<p>
-		<% tag_cloud(Post.tag_counts, %w{s, m, l}) do |tag, css_class| %>
-			<%= link_to tag.title, tag_path(tag.title), class: css_class %>
-		<% end %>
-
-	</br> </br>
-		<% if @tags!=nil && @tags.any? %>
-			<% @tags.each do |tag| %>
-				<%= link_to tag.title, tag_path(tag.title) %>
-			<% end %>
-		<% end %>
-
-
-	</br> </br>
-		<% if @tagsHash!=nil && @tagsHash.any? %>
-			<% @tagsHash.keys.each do |tag| %>
-				<%= link_to tag.title, tag_path(tag.title) %>
-			<% end %>
-		<% end %>
-
-	</br> </br>
-		<% if @tagsHash!=nil && @tagsHash.any? %>
-			<% tag_cloud(@tagsHash, %w{s, m, l}) do |tag, css_class| %>
+		<div id = "tags" style="display: none;">
+			<% tag_cloud(Post.tag_counts, %w{s, m, l}) do |tag, css_class| %>
 				<%= link_to tag.title, tag_path(tag.title), class: css_class %>
 			<% end %>
-		<% end %>
+		</div>
+
+	
+		<div id="relatedTags"  style="display: inline;">
+			<% if @tagsHash!=nil && @tagsHash.any? %>
+				<% tag_cloud(@tagsHash, %w{s, m, l}) do |tag, css_class| %>
+					<%= link_to tag.title, tag_path(tag.title), class: css_class %>
+				<% end %>
+			<% end %>
+		</div>
 	</p>
+</div>
+
+<div id="blogCalendar">
+
 </div>
