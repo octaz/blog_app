@@ -1,19 +1,41 @@
-<p id="notice"><%= notice %></p>
+
+<% provide(:title, @post.title) %>
+<div class = "hero-unit" >
+
+	<div class = "row">
+	
+	      <% if @post %>
+	       
+	          <ol class="posts">
+	            <%= render @post %>
+	          </ol>
+	     
+	       
+	     <% end %>
+	 
+	</div>
+
+</div>
+
+
+
+
+<!-- <p id="notice"><%= notice %></p>
 
 <p>
   <strong>User:</strong>
-  <%= @post.user_id %>
+  <%#= @post.user_id %>
 </p>
 
 <p>
   <strong>Title:</strong>
-  <%= @post.title %>
+  <%#= @post.title %>
 </p>
 
 <p>
   <strong>Content:</strong>
-  <%= @post.content %>
+  <%#= @post.content %>
 </p>
 
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+<%#= link_to 'Edit', edit_post_path(@post) %> |
+<%#= link_to 'Back', posts_path %> -->

@@ -15,13 +15,16 @@ class PostsController < ApplicationController
        @posts = Post.tagged_with(params[:tag]).paginate(page: params[:page])
        @tags = related_tags(@posts)
        @tagsHash = related_tags_hash(@posts)
+       
  
      #  @posts = Post.tagged_with_paginate(params[:tag], params[:page])
      else
       @posts = Post.paginate(page: params[:page])
       @tags = Array.new
       @tagsHash = {}
+
      end
+     @postsCalendar = post_calendar(@posts)
 
   end
 
@@ -29,6 +32,20 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+     if params[:tag]
+       @posts = @post.tagged_with(params[:tag])
+       @tags = related_tags(@posts)
+       @tagsHash = related_tags_hash(@posts)
+       
+ 
+     #  @posts = Post.tagged_with_paginate(params[:tag], params[:page])
+     else
+      @posts = [@post]
+      @tags = related_tags(@posts)
+      @tagsHash = related_tags_hash(@posts)
+
+     end
+     @postsCalendar = post_calendar(@posts)
   end
 
   # GET /posts/new

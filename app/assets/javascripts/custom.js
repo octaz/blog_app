@@ -14,4 +14,14 @@ function toggleDisplay(toggleOnId, toggleOffId)
 	}
 }
 
+$(document).ready(function () {
+	$('label.tree-toggler').click(function () {
+		$(this).parent().children('ol.tree').toggle(300);
+	});
+});
+
+
+
+
+
 

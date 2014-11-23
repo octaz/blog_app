@@ -66,5 +66,72 @@
 </div>
 
 <div id="blogCalendar">
+	<% if @postsCalendar!=nil && @postsCalendar.any? %>
+		<% @postsCalendar.keys.each do |keyYear| %>
+			<ol class = "nav nav-list">
+				<li>
+					<label class = "tree-toggler nav-header">
+					 	<%= keyYear %>
+					</label>
 
+					<% @postsCalendar[keyYear].keys.each do |keyMonth| %>
+						<ol class = "nav nav-list tree">
+							<li>
+								<label class = "tree-toggler nav-header" >
+									<%= keyMonth %>
+								</label>
+								
+								<ol class = "nav nav-list tree">
+									<% @postsCalendar[keyYear][keyMonth].each do |post| %>
+										<li>
+											 <%= link_to post.title, post_path(post) %>
+										</li>
+									<% end %>
+								</ol>
+								
+							</li>
+						</ol>
+					<% end %>
+				</li>
+			</ol>
+		<% end %>
+	<% end %>
 </div>
+
+<!-- <div id="blogCalendar">
+	<%# if @postsCalendar!=nil && @postsCalendar.any? %>
+		<%# @postsCalendar.keys.each do |keyYear| %>
+			<ol>
+				year <%#= keyYear %>
+			
+		
+				<%# @postsCalendar[keyYear].keys.each do |keyMonth| %>
+					<ol>
+						<span>
+							month <%#= keyMonth %>
+						</span>
+						<%# @postsCalendar[keyYear][keyMonth].each do |post| %>
+						<ol>
+							<span>
+								post <%#= post.title %>
+							</span>
+						</ol>
+							
+								<%# yearMap[keyMonth].each do |post| %>
+									<%#= post.title %>
+								<%# end %>
+						<%# end %>
+
+						<%# yearMap.keys.each do |keyMonth| %>
+							<%#= keyMonth %>
+								<%# yearMap[keyMonth].each do |post| %>
+									<%#= post.title %>
+								<%# end %>
+						<%# end %>
+					</ol>
+				<%# end %>
+
+			</ol>
+		<%# end %>
+	<%# end %>
+</div> -->

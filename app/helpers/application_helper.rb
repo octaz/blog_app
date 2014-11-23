@@ -87,5 +87,49 @@ module ApplicationHelper
  	end
 
 
+	def post_calendar(posts)
+		postsByYear = {}
+		posts.each do |post|
+			if (!postsByYear.has_key?(post.created_at.strftime("%Y")))
+				postsByMonth = {}
+				monthArray = []
+				monthArray.push(post)
+				postsByMonth[post.created_at.strftime("%B")] = monthArray
+				postsByYear[post.created_at.strftime("%Y")] = postsByMonth
+			elsif (!postsByYear[post.created_at.strftime("%Y")].has_key?(post.created_at.strftime("%B")))
+				#postsByMonth = {}
+				monthArray = []
+				monthArray.push(post)
+				postsByYear[post.created_at.strftime("%Y")][post.created_at.strftime("%B")] = monthArray
+			else
+				postsByYear[post.created_at.strftime("%Y")][post.created_at.strftime("%B")].push(post)
+			end	
+		end
+		return postsByYear
+	end
+
+
+	# def post_calendar(posts)
+	# 	postsByYear = {}
+	# 	posts.each do |post|
+	# 		if (!postsByYear.has_key?(post.created_at.strftime("%Y")))
+	# 			postsByMonth = {}
+	# 			monthArray = []
+	# 			monthArray.push(post)
+	# 			postsByMonth[post.created_at.strftime("%m")] = monthArray
+	# 			postsByYear[post.created_at.strftime("%Y")] = postsByMonth
+	# 		elsif (!postsByYear[post.created_at.strftime("%Y")].has_key?(post.created_at.strftime("%m")))
+	# 			postsByMonth = {}
+	# 			monthArray = []
+	# 			monthArray.push(post)
+	# 			postsByYear[post.created_at.strftime("%Y")][post.created_at.strftime("%m")] = monthArray
+	# 		else
+	# 			postsByYear[post.created_at.strftime("%Y")][post.created_at.strftime("%m")].push(post)
+	# 		end	
+	# 	end
+	# 	return postsByYear
+	#end
+
+
 	
 end
