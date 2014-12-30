@@ -1,3 +1,9 @@
 <div class = "container-fluid" >
-<div id = "quotes"> A Blogging Application!  </div>
+<div id = "quotes"> 
+	<% quote = getRandomQuote %>
+	<% if !quote.nil? %>
+		
+		<%= quote.content %>
+	<% end %>
+  </div>
 </div>

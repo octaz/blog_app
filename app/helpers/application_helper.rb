@@ -108,6 +108,40 @@ module ApplicationHelper
 		return postsByYear
 	end
 
+	def getRandomQuote
+		
+		value = Post.tag_exists?("blogQuote")
+		logger.debug "testMonkey before " 
+		if (Post.tag_exists?("blogQuote"))
+			logger.debug "testMonkey inside"
+			quote = Post.tagged_with("blogQuote")
+			return quote.sample
+		end	
+	end
+
+	def count_total_posts postsCalendar
+		if postsCalendar && postsCalendar.is_a?(Hash)
+			#return postsCalendar.select{|k,v| }
+			return postsCalendar.values.inject(0) {|sum, ary| sum + count_total_posts(ary)}
+			# nested = postsCalendar.select{|k,v| v.is_a?(Hash)}
+			# if nested.empty?
+			# 	return 1
+			# else
+			# 	nested.inject(0) {|sum, (k, hsh)| sum + count_total_posts(hsh)}
+			# end
+		elsif postsCalendar && postsCalendar.is_a?(Array)
+			nested = postsCalendar.select{ |e| e.is_a?(Array)}
+			if nested.empty?
+				postsCalendar.size
+			else
+				nested.inject(0) {|sum, ary| sum + count_total_posts(ary)}
+			end
+		else
+			return 0 
+		end
+	end
+
+
 
 	# def post_calendar(posts)
 	# 	postsByYear = {}

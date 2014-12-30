@@ -315,10 +315,21 @@ aside {
 /* tag cloud */
 
 .tag-cloud{
+  position: relative;
   background-color: pink;
+  .xs {font-size: .6em;}
   .s {font-size: .8em;}
   .m {font-size: 1em;}
   .l {font-size: 1.2em;}
+  .xl {font-size: 1.4em;}
+  margin: auto;
+  overflow-y: auto;
+}
+
+/* blogCalendar */
+
+#blogCalendar{
+  
 }
 
 /* sidebar */

@@ -4,6 +4,7 @@
 		{
 			toggleDisplay("relatedTags", "tags");
 			toggleDisplay("showRelatedTags", "showAllTags");
+			toggleDisplay("relatedBlogCalendar","allBlogCalendar");
 		}
 	</script>
 <% else %>
@@ -12,6 +13,7 @@
 		{
 			toggleDisplay("tags", "relatedTags");
 			toggleDisplay("showAllTags", "showRelatedTags");
+			toggleDisplay("allBlogCalendar","relatedBlogCalendar");
 		}
 	</script>
 <% end %>
@@ -24,16 +26,18 @@
 								Showing Related Tags
 							</div>
 
-							<div style="font-size: 75%; float: right;" >
+							<div style="font-size: 50%; float: right;" >
 							 <%= link_to 'Show All Tags' , '', {onclick: 'toggleDisplay("tags", "relatedTags"); 
-							 	toggleDisplay("showAllTags", "showRelatedTags");  return false;'}  %>
+							 	toggleDisplay("showAllTags", "showRelatedTags"); 
+							 	toggleDisplay("allBlogCalendar","relatedBlogCalendar");  return false;'}  %>
 							</div>
 						</div>
 
 						<div id = "showAllTags" style="display: inline;">
-							<div style="font-size: 75%; float: left;" >
+							<div style="font-size: 50%; float: left;" >
 							 <%= link_to 'Show Related Tags' , '', {onclick: 'toggleDisplay("relatedTags", "tags"); 
-							 	toggleDisplay("showRelatedTags", "showAllTags"); return false;'} %>
+							 	toggleDisplay("showRelatedTags", "showAllTags"); 
+							 	toggleDisplay("relatedBlogCalendar","allBlogCalendar"); return false;'} %>
 							</div>
 
 
@@ -47,9 +51,10 @@
 				</h4>
 			
 		
-	<p>
+	
+	<span style = "float: left; text-align: left; margin: auto;">
 		<div id = "tags" style="display: none;">
-			<% tag_cloud(Post.tag_counts, %w{s, m, l}) do |tag, css_class| %>
+			<% tag_cloud(Post.tag_counts, %w{xs, s, m, l, xl}) do |tag, css_class| %>
 				<%= link_to tag.title, tag_path(tag.title), class: css_class %>
 			<% end %>
 		</div>
@@ -57,32 +62,33 @@
 	
 		<div id="relatedTags"  style="display: inline;">
 			<% if @tagsHash!=nil && @tagsHash.any? %>
-				<% tag_cloud(@tagsHash, %w{s, m, l}) do |tag, css_class| %>
+				<% tag_cloud(@tagsHash, %w{xs, s, m, l, xl}) do |tag, css_class| %>
 					<%= link_to tag.title, tag_path(tag.title), class: css_class %>
 				<% end %>
 			<% end %>
 		</div>
-	</p>
+	</span>
+	
 </div>
 
-<div id="blogCalendar">
-	<% if @postsCalendar!=nil && @postsCalendar.any? %>
-		<% @postsCalendar.keys.each do |keyYear| %>
+<div id="relatedBlogCalendar">
+	<% if @relatedPostsCalendar!=nil && @relatedPostsCalendar.any? %>
+		<% @relatedPostsCalendar.keys.each do |keyYear| %>
 			<ol class = "nav nav-list">
 				<li>
 					<label class = "tree-toggler nav-header">
 					 	<%= keyYear %>
 					</label>
 
-					<% @postsCalendar[keyYear].keys.each do |keyMonth| %>
+					<% @relatedPostsCalendar[keyYear].keys.each do |keyMonth| %>
 						<ol class = "nav nav-list tree">
 							<li>
-								<label class = "tree-toggler nav-header" >
+								<label class = "tree-toggler nav-header" data-toggle="collapse">
 									<%= keyMonth %>
 								</label>
 								
-								<ol class = "nav nav-list tree">
-									<% @postsCalendar[keyYear][keyMonth].each do |post| %>
+								<ol class = "nav nav-list tree collapse">
+									<% @relatedPostsCalendar[keyYear][keyMonth].each do |post| %>
 										<li>
 											 <%= link_to post.title, post_path(post) %>
 										</li>
@@ -98,6 +104,63 @@
 	<% end %>
 </div>
 
+
+<div id="allBlogCalendar">
+	<% if @postsCalendar != nil && @postsCalendar.any? %>
+		<div class="panel-group" id="accordion" role="tablist">  
+			<% @postsCalendar.keys.each do |keyYear| %>
+				<ol class = "nav nav-list">
+					<li>
+						<div class="panel panel-default">
+							
+								<div class="panel-heading" role="tab" id="headingOne">
+							      	<h4 class="panel-title">
+							        	<a data-toggle="collapse" data-parent="#accordion" href="#collapse<%=keyYear%>">
+							         		<label class = "nav-header">
+								         		<%= keyYear %> (<%= count_total_posts(@postsCalendar[keyYear]) %> posts)
+								         	</label>
+							        	</a>
+							      	</h4>
+							    </div>
+							<div id ="collapse<%=keyYear%>" class = "panel-collapse collapse in" role="tabpanel">
+								<% @postsCalendar[keyYear].keys.each do |keyMonth| %>
+									<ol class = "nav nav-list tree" >
+										<li>
+											<div class="panel-heading" role="tab" id="headingOne">
+										      	<h4 class="panel-title">
+											        	<a data-toggle="collapse" data-parent="#accordion" href="#collapse<%=keyMonth%>">
+											         		<div class = "panel-body">
+											         			<label class = "nav-header">
+												         			<%= keyMonth %> (<%= count_total_posts(@postsCalendar[keyYear][keyMonth])%> posts)
+												         		</label>
+											         		</div>
+											        	</a>
+										      	</h4>
+										    </div>
+										    <div id="collapse<%=keyMonth%>" class="panel-collapse collapse" role="tabpanel">
+											    <ol class = "nav nav-list tree" >
+
+												    <% @postsCalendar[keyYear][keyMonth].each do |post| %>
+													      <div class="panel-body">
+													      	<li>
+														        <%= link_to post.title, post_path(post) %>
+														    </li>
+													      </div>
+												    <% end %>
+												</ol>
+											</div>
+										</li>
+									</ol>
+								<% end %>
+							</div>
+						</div>
+					</li>
+				</ol>
+			<% end %>
+		</div>
+	<% end %>
+</div>
+		  
 <!-- <div id="blogCalendar">
 	<%# if @postsCalendar!=nil && @postsCalendar.any? %>
 		<%# @postsCalendar.keys.each do |keyYear| %>

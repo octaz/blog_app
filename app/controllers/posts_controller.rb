@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  require 'will_paginate/array'
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :correct_admin_user, only: [:edit, :update, :new, :destroy, :create]
   include ApplicationHelper
@@ -12,19 +13,29 @@ class PostsController < ApplicationController
   def home
     #to do, implement search by
      if params[:tag]
-       @posts = Post.tagged_with(params[:tag]).paginate(page: params[:page])
+       currentTags = Post.tagged_with(params[:tag])
+       @posts = currentTags.paginate(page: params[:page], per_page: 10)
+      # @posts = Post.tagged_with(params[:tag]).paginate(page: params[:page], per_page: 10)
        @tags = related_tags(@posts)
        @tagsHash = related_tags_hash(@posts)
+       @relatedPostsCalendar = post_calendar(Post.tagged_with(params[:tag]))
        
  
      #  @posts = Post.tagged_with_paginate(params[:tag], params[:page])
      else
-      @posts = Post.paginate(page: params[:page])
-      @tags = Array.new
-      @tagsHash = {}
+        @posts = Post.not_tagged_with("blogQuote").paginate(page: params[:page], per_page: 10)
+        @tags = Array.new
+        @tagsHash = {}
+        @relatedPostsCalendar = post_calendar(Post.not_tagged_with("blogQuote"))
+     # @posts = Post.paginate(page: params[:page], per_page: 10)
+      #@tags = Array.new
+      #@tags = relatedTags(Post.not_tagged_with_find_by_title("blogQuote"))
+     # @tagsHash = {}
+     # @relatedPostsCalendar = {}
 
      end
-     @postsCalendar = post_calendar(@posts)
+
+     @postsCalendar = post_calendar(Post.not_tagged_with_find_by_title("blogQuote"))
 
   end
 
@@ -36,16 +47,16 @@ class PostsController < ApplicationController
        @posts = @post.tagged_with(params[:tag])
        @tags = related_tags(@posts)
        @tagsHash = related_tags_hash(@posts)
-       
+       @relatedPostsCalendar = post_calendar(@posts)
  
      #  @posts = Post.tagged_with_paginate(params[:tag], params[:page])
      else
       @posts = [@post]
       @tags = related_tags(@posts)
       @tagsHash = related_tags_hash(@posts)
-
+      @relatedPostsCalendar = post_calendar(@posts)
      end
-     @postsCalendar = post_calendar(@posts)
+     @postsCalendar = post_calendar(Post.all)
   end
 
   # GET /posts/new
