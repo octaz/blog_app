@@ -65,7 +65,7 @@ class Post < ActiveRecord::Base
 	##this is what we're using to not render blogQuotes
 	def self.not_tagged_with_find_by_title(title)
 		allPosts = Post.all.to_a
-		if (Tag.find_by_title!(title)!=nil)
+		if (Tag.find_by_title(title)!=nil)
 			blogQuotePosts = Tag.find_by_title!(title).posts.to_a
 
 			blogQuotePosts.each do |post|
