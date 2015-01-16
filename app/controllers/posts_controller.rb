@@ -26,7 +26,8 @@ class PostsController < ApplicationController
         @posts = Post.not_tagged_with("blogQuote").paginate(page: params[:page], per_page: 10)
         @tags = Array.new
         @tagsHash = {}
-        @relatedPostsCalendar = post_calendar(Post.not_tagged_with("blogQuote"))
+        @relatedPostsCalendar = post_calendar(Post.not_tagged_with_find_by_title("blogQuote"))
+      #  @relatedPostsCalendar = post_calendar(Post.not_tagged_with("blogQuote"))
      # @posts = Post.paginate(page: params[:page], per_page: 10)
       #@tags = Array.new
       #@tags = relatedTags(Post.not_tagged_with_find_by_title("blogQuote"))
@@ -38,6 +39,9 @@ class PostsController < ApplicationController
      @postsCalendar = post_calendar(Post.not_tagged_with_find_by_title("blogQuote"))
 
   end
+
+
+  
 
 
   # GET /posts/1

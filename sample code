@@ -313,3 +313,93 @@
 		</div>
 	</div>
 </div>
+
+<!-- <div id="relatedBlogCalendar">
+	<%# if @relatedPostsCalendar!=nil && @relatedPostsCalendar.any? %>
+		<% #@relatedPostsCalendar.keys.each do |keyYear| %>
+			<ol class = "nav nav-list">
+				<li>
+					<label class = "tree-toggler nav-header">
+					 	<%=# keyYear %>
+					</label>
+
+					<%# @relatedPostsCalendar[keyYear].keys.each do |keyMonth| %>
+						<ol class = "nav nav-list tree">
+							<li>
+								<label class = "tree-toggler nav-header" data-toggle="collapse">
+									<%=# keyMonth %>
+								</label>
+								
+								<ol class = "nav nav-list tree collapse">
+									<%# @relatedPostsCalendar[keyYear][keyMonth].each do |post| %>
+										<li>
+											 <%=# link_to post.title, post_path(post) %>
+										</li>
+									<%# end %>
+								</ol>
+								
+							</li>
+						</ol>
+					<% #end %>
+				</li>
+			</ol>
+		<% #end %>
+	<% #end %>
+</div> -->
+
+#### this is working
+<div id="relatedBlogCalendar">
+	<% if @relatedPostsCalendar != nil && @relatedPostsCalendar.any? %>
+		<div class="panel-group" id="accordion" role="tablist">  
+			<% @relatedPostsCalendar.keys.each do |keyYear| %>
+				<ol class = "nav nav-list">
+					<li>
+						<div class="panel panel-default">
+							
+								<div class="panel-heading" role="tab" id="headingOne">
+							      	<h4 class="panel-title">
+							        	<a data-toggle="collapse" data-parent="#accordion" href="#collapse<%=keyYear%>">
+							         		<label class = "nav-header">
+								         		<%= keyYear %> (<%= count_total_posts(@relatedPostsCalendar[keyYear]) %> posts)
+								         	</label>
+							        	</a>
+							      	</h4>
+							    </div>
+							<div id ="collapse<%=keyYear%>" class = "panel-collapse collapse in" role="tabpanel">
+								<% @relatedPostsCalendar[keyYear].keys.each do |keyMonth| %>
+									<ol class = "nav nav-list tree" >
+										<li>
+											<div class="panel-heading" role="tab" id="headingOne">
+										      	<h4 class="panel-title">
+											        	<a data-toggle="collapse" data-parent="#accordion" href="#collapse<%=keyMonth%>">
+											         		<div class = "panel-body">
+											         			<label class = "nav-header">
+												         			<%= keyMonth %> (<%= count_total_posts(@relatedPostsCalendar[keyYear][keyMonth])%> posts)
+												         		</label>
+											         		</div>
+											        	</a>
+										      	</h4>
+										    </div>
+										    <div id="collapse<%=keyMonth%>" class="panel-collapse collapse" role="tabpanel">
+											    <ol class = "nav nav-list tree" >
+
+												    <% @relatedPostsCalendar[keyYear][keyMonth].each do |post| %>
+													      <div class="panel-body">
+													      	<li>
+														        <%= link_to post.title, post_path(post) %>
+														    </li>
+													      </div>
+												    <% end %>
+												</ol>
+											</div>
+										</li>
+									</ol>
+								<% end %>
+							</div>
+						</div>
+					</li>
+				</ol>
+			<% end %>
+		</div>
+	<% end %>
+</div>

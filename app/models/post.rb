@@ -9,7 +9,12 @@ class Post < ActiveRecord::Base
 	default_scope -> {order('created_at DESC')}
 
 	def self.tagged_with(title)
-		Tag.find_by_title!(title).posts
+		if (Tag.find_by_title(title)!=nil)
+			Tag.find_by_title!(title).posts
+		else
+			[]
+		end
+				
 	end
 
 
@@ -60,11 +65,14 @@ class Post < ActiveRecord::Base
 	##this is what we're using to not render blogQuotes
 	def self.not_tagged_with_find_by_title(title)
 		allPosts = Post.all.to_a
-		blogQuotePosts = Tag.find_by_title!(title).posts.to_a
+		if (Tag.find_by_title!(title)!=nil)
+			blogQuotePosts = Tag.find_by_title!(title).posts.to_a
 
-		blogQuotePosts.each do |post|
-			allPosts.delete(post)
+			blogQuotePosts.each do |post|
+				allPosts.delete(post)
+			end
 		end
+		
 		return allPosts
 
 	end
@@ -75,6 +83,12 @@ class Post < ActiveRecord::Base
   #   		joins(:taggings).group("taggings.tag_id, tags.id, tags.title")
     	Tag.select("tags.id, tags.title,count(taggings.tag_id) as count").
     		joins(:taggings).group("taggings.tag_id, tags.id, tags.title")
+	end
+
+	def self.tag_counts_not_including(tag)
+		Tag.select("tags.id, tags.title,count(taggings.tag_id) as count").
+    		joins(:taggings).group("taggings.tag_id, tags.id, tags.title").
+    		where("title != ?", tag)
 	end
 
 	def tag_list

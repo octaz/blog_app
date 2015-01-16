@@ -3,14 +3,17 @@
 
 	<div class = "row">
 	
-	      <% if @posts.any? %>
+	    <% if @posts.any? %>
 	        <div id = "postCount">Found <%= pluralize(@posts.count, 'post')%></div>
 	          <ol class="posts">
 	            <%= render @posts %>
 	          </ol>
 	     
 	        <%= will_paginate @posts %>
-	     <% end %>
+	    <% else %>
+	    	NOTHING TO SEE HERE!
+	    <% end %>
+
 	 
 	</div>
 
