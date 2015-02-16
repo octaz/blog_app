@@ -1,0 +1,45 @@
+<%= form_for [@comment] do |f| %>
+  <% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+
+      <ul>
+      <% @comment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  
+  <% if !signed_in? %>
+    <div class="field">
+      <%= f.label :author %><br>
+      <%= f.text_area :author %>
+    </div>
+    
+    <div class="field">
+      <%= f.label :content %><br>
+      <%= f.text_area :content, :class => "jqtextarea", :maxlength => 200 %>
+    </div>
+       <span id="count">200</span> characters remaining </p>
+  <% else %>
+    <div class="field">
+      <%= f.label :content %><br>
+      <%= f.text_area :content,  :class => "jqtextarea", :maxlength => 1000 %>
+    </div>
+       <span id="count">1000</span> characters remaining </p>
+  <% end %>
+
+  <p>
+
+
+
+
+
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

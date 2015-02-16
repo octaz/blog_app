@@ -1,0 +1,44 @@
+<li>
+
+	<div>
+		
+		<div class = "editDeletePost">
+		<% if (current_user && comment.user == current_user) || (current_user &&current_user.admin) %>
+   		
+	   		<%= link_to "Edit", edit_comment_path(comment)%>
+	   		<%= link_to "Delete", comment, method: :delete,
+	   									data: {confirm: "You sure?"} %>
+   		<% end %>
+		</div>
+	</div>
+
+	<span class = "user"><h4>
+		<% if comment.user!=nil %>
+			By <%= User.find(comment.user).name %> 
+		<% else %>
+			By <%= comment.author %> 
+		<% end %>
+
+		</h4> 
+	</span>
+	<span class = "content">
+	
+		<%= comment.content %>  
+	
+	</span>
+
+	
+	<span class = "timestamp">
+		Posted <%= time_ago_in_words(comment.created_at) %> ago.
+	</span>
+	<% if comment.created_at != comment.updated_at %>
+	<span class = "updated">
+		Updated <%= time_ago_in_words(comment.updated_at) %> ago.
+	</span>
+
+	<% end %>
+	
+
+
+</li>
+

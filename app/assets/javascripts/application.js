@@ -16,3 +16,33 @@
 //= require bootstrap
 //= require turbolinks
 //= require_tree .
+var orig;
+var value2;
+var value;
+var remaining;
+var value1;
+
+
+$(document).ready(function() {
+
+	orig = $("#count").text();
+	count = 0;
+	//count = parseInt(orig, 10);
+	remaining = orig;
+	value = $('#count').val();
+	value1 = $('#count').text();
+
+	//alert(value2);
+//	alert($("#count").text());
+});
+
+
+$(document).ready(function(){
+    $('.jqtextarea').keyup(function() {
+     //   alert(value2);'
+    	count = $('.jqtextarea').val().length;
+        remaining = orig - count;
+       // remaining = orig - count;
+        $("#count").text(remaining);
+    });
+});

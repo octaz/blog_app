@@ -1,0 +1,13 @@
+<% provide(:title, 'Comments for @post.title') %>
+
+<h1>Comments</h1>
+
+<%= render @post %>
+
+  <%= will_paginate %>
+
+    <ul class = "comments">
+      <%= render @comments %>
+    </ul>
+
+  <%= will_paginate %>

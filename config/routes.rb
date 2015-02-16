@@ -3,6 +3,7 @@ BlogApp::Application.routes.draw do
     collection do
       get :home
     end
+    resources :comments
   end
 
   resources :microposts
@@ -10,6 +11,8 @@ BlogApp::Application.routes.draw do
   resources :users
 
   resources :sessions, only: [:new, :create, :destroy]
+
+  resources :comments
 
   get "posts/home"
   match "/home", to: 'posts#home', via: 'get'
@@ -20,6 +23,7 @@ BlogApp::Application.routes.draw do
 
   match '/signout', to:'sessions#destroy', via: 'delete'
   get 'tags/:tag', to: 'posts#home', as: :tag
+
 
  
 

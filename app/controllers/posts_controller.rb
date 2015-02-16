@@ -12,7 +12,7 @@ class PostsController < ApplicationController
 
   def home
     #to do, implement search by
-     if params[:tag]
+     if params[:tag] 
        currentTags = Post.tagged_with(params[:tag])
        @posts = currentTags.paginate(page: params[:page], per_page: 10)
       # @posts = Post.tagged_with(params[:tag]).paginate(page: params[:page], per_page: 10)
@@ -40,10 +40,14 @@ class PostsController < ApplicationController
 
   end
 
+  def comments
 
-  
+  end
 
 
+
+
+ 
   # GET /posts/1
   # GET /posts/1.json
   def show
@@ -70,6 +74,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
+    @post = Post.find(params[:id])
   end
 
   # POST /posts

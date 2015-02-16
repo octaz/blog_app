@@ -403,3 +403,7 @@
 		</div>
 	<% end %>
 </div>
+
+$(".jqtextarea").keypress(function () {
+	$("#count").html($count = $count + 1);
+});

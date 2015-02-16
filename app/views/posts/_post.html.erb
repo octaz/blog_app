@@ -17,8 +17,15 @@
 		<%= parseText(post.content)%>  
 	
 	</span>
+
+	<span class = "comments">
+		Click <%= link_to "Here", post_comments_path(post) %> to join the discussion! 
+		Currently <%= post.comments.count %> comments!
+	</span>
+
 	<span class = "tags"> Tags: <%= raw post.tags.map(&:title).map {|t| link_to t, tag_path(t)}.join(', ') %> </span>
 	<div>
+
 	<span class = "timestamp">
 		Posted <%= time_ago_in_words(post.created_at) %> ago.
 	</span>
@@ -26,6 +33,7 @@
 	<span class = "updated">
 		Updated <%= time_ago_in_words(post.updated_at) %> ago.
 	</span>
+
 	<% end %>
 	</div>
 </li>

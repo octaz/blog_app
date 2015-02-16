@@ -1,0 +1,30 @@
+<% provide(:title, 'Comments for @post.title') %>
+
+<h1>Comments</h1>
+
+<p>
+	<%= @post.content %>
+</p>
+
+
+<div class = "hero-unit" >
+
+<div class = "row" >
+
+
+
+    <ol class = "posts">
+      <%= render @comments %>
+    </ol>
+
+  <%= will_paginate @comments %>
+
+</div>
+
+</div>
+
+<span class = "new" >
+	<%= link_to "Add New Comment", new_post_comment_path %>
+</span>
+
+  
