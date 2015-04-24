@@ -5,8 +5,8 @@
 		<div class = "editDeletePost">
 		<% if (current_user && comment.user == current_user) || (current_user &&current_user.admin) %>
    		
-	   		<%= link_to "Edit", edit_comment_path(comment)%>
-	   		<%= link_to "Delete", comment, method: :delete,
+	   		<%= link_to "Edit", edit_post_comment_path(comment.post, comment)%>
+	   		<%= link_to "Delete", [comment.post, comment], method: :delete,
 	   									data: {confirm: "You sure?"} %>
    		<% end %>
 		</div>

@@ -13,7 +13,9 @@ class PostsController < ApplicationController
   def home
     #to do, implement search by
      if params[:tag] 
+      @tag = params[:tag]
        currentTags = Post.tagged_with(params[:tag])
+       @totalPosts = currentTags
        @posts = currentTags.paginate(page: params[:page], per_page: 10)
       # @posts = Post.tagged_with(params[:tag]).paginate(page: params[:page], per_page: 10)
        @tags = related_tags(@posts)
@@ -23,7 +25,9 @@ class PostsController < ApplicationController
  
      #  @posts = Post.tagged_with_paginate(params[:tag], params[:page])
      else
-        @posts = Post.not_tagged_with("blogQuote").paginate(page: params[:page], per_page: 10)
+        @totalPosts = Post.not_tagged_with("blogQuote")
+        @posts = @totalPosts.paginate(page: params[:page], per_page: 10)
+        #@posts = Post.not_tagged_with("blogQuote").paginate(page: params[:page], per_page: 10)
         @tags = Array.new
         @tagsHash = {}
         @relatedPostsCalendar = post_calendar(Post.not_tagged_with_find_by_title("blogQuote"))

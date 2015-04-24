@@ -4,6 +4,7 @@ class CommentsController < ApplicationController
 	
 	def index
 		@post = Post.find(params[:post_id])
+		@commentsTotal = @post.comments
 		@comments = @post.comments.paginate(page: params[:page], per_page: 10)
 		@comment = Comment.new
 	end
@@ -12,7 +13,7 @@ class CommentsController < ApplicationController
 	    @post = Post.find(params[:post_id])
 	    @comment = @post.comments.find(params[:id])
 	    @comment.destroy
-	    redirect_to post_path(@post)
+	    redirect_to post_comments_path(@post)
 	end
 
 	def show
@@ -20,7 +21,9 @@ class CommentsController < ApplicationController
 	end
 
 	def edit
+
 		@comment = Comment.find(params[:id])
+		@post = Post.find(@comment.post)
 	end
 
 
@@ -51,9 +54,7 @@ class CommentsController < ApplicationController
 		end
 	end
 
-	def destroy
-
-	end
+	
 
 	def update
 

@@ -2,9 +2,9 @@
 <div class = "hero-unit" >
 
 	<div class = "row">
-	
+	<div id = "postCount">Found <%= pluralize(@totalPosts.count, 'post')%> <% if @tag!=nil %> related to <%= @tag %> <% end %> </div>
 	    <% if @posts.any? %>
-	        <div id = "postCount">Found <%= pluralize(@posts.count, 'post')%></div>
+	        
 	          <ol class="posts">
 	            <%= render @posts %>
 	          </ol>

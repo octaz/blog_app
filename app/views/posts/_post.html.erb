@@ -19,7 +19,7 @@
 	</span>
 
 	<span class = "comments">
-		Click <%= link_to "Here", post_comments_path(post) %> to join the discussion! 
+		<%= link_to "Click Here to join the discussion!", post_comments_path(post) %> 
 		Currently <%= post.comments.count %> comments!
 	</span>
 

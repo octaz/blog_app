@@ -1,6 +1,8 @@
 <h1>Editing post</h1>
 
+<input id = "post" type = "hidden" value = "<%= params[:post] %>" />
+
 <%= render 'form' %>
 
-<%= link_to 'Show', @post %> |
-<%= link_to 'Back', posts_path %>
+
+<%= link_to 'Back', @post %>
