@@ -16,7 +16,7 @@
 		<% if comment.user!=nil %>
 			By <%= User.find(comment.user).name %> 
 		<% else %>
-			By <%= comment.author %> 
+			By <%= comment.author %> <span class="italic"> (UNREGISTERED USER) </span> 
 		<% end %>
 
 		</h4> 

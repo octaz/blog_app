@@ -86,7 +86,7 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.update_attribute(:user_id, current_user.id)
-
+  
       if @post.save
        flash[:success] = "Post Created"
        redirect_to home_path

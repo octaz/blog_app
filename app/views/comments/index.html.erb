@@ -1,39 +1,44 @@
 <% provide(:title, 'Comments for ' +@post.title) %>
 
 <h1>Comments for <%=@post.title%></h1>
-<div class = "new btn" >
-	<%= link_to "Add New Comment", new_post_comment_path %>
-</div>
+
 
 
 <div class = "hero-unit" >
 
 
-<div class = "row" >
 
-	<%if @comments.any?%>
-	<span> Found  <%= pluralize(@commentsTotal.count, 'comment')%>
-    <ol class = "posts">
-      <%= render @comments %>
-    </ol>
+	<div class = "row" >
 
-  <%= will_paginate @comments %>
-  <%else%>
-  
-  
-  		No comments yet! Why not post one yourself?
+		<div class = "new btn" >
+			<%= link_to "Add New Comment", new_post_comment_path %>
+		</div>	
 
- 
-  <%end%>
- 
+		<%if @comments.any?%>
+		<div class="clear"> Found  <%= pluralize(@commentsTotal.count, 'comment')%> </div>
+	    <ol class = "posts">
+	      <%= render @comments %>
+	    </ol>
+
+	  <%= will_paginate @comments %>
+	  <%else%>
+	  
+	  <div class="clear">
+	  	No comments yet! Why not post one yourself?
+	  </div>
+
+	 
+	  <%end%>
+	 
+
+	</div>
+
+	<div class = "newAfter btn" >
+		<%= link_to "Add New Comment", new_post_comment_path %>
+	</div>
 
 </div>
 
-
-</div>
-<div class = "new btn" >
-<%= link_to "Add New Comment", new_post_comment_path %>
-</div>
 
 
 

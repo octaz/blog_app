@@ -42,13 +42,15 @@ class CommentsController < ApplicationController
 		#@comment = Comment.new(comment_params)
 		#@comment.update_attribute(:post, @post)
 		#@comment.update_attributes(:post, @post)
+		@comments = @post.comments.paginate(:page => 1, :per_page => 10)
+    	@totalPages = @comments.total_pages
 		if (current_user!=nil)
 			@comment.update_attribute(:user, current_user)
 		end
 
 		if @comment.save
 			flash[:success] = "Comment Created"
-			redirect_to post_comments_path(@comment.post)
+			redirect_to post_comments_path(@comment.post, {:page=>@totalPages})
 		else
 			render action: 'new'
 		end

@@ -10,6 +10,9 @@ $ghostWhite: #F8F8FF;
   clear: both;
 	height: auto;
 }
+#clear{
+  clear: both;
+}
 
 html {
 	overflow-y: scroll;
@@ -327,7 +330,19 @@ aside {
   margin: 0;
   list-style: none;
   float: left;
+}
 
+.clear{
+  clear:both;
+}
+
+.italic{
+  font-style: italic;
+}
+
+.newAfter{
+  float: right;
+  margin: 0;
 }
 
 /* tag cloud */
